@@ -41,6 +41,8 @@ typedef enum {
 - (void)setBackgroundImage:(UIImage *)backgroundImage;
 - (void)setHeight:(CGFloat)height;
 - (void)setAutoAdjustButtonWidth:(BOOL)autoAdjust;
+- (void)setAutoUpdateBackButtonLabel:(BOOL)autoAdjust;
+
 @end
 
 /**** DELEGATE PROTOCOL ****/
@@ -48,13 +50,4 @@ typedef enum {
 @protocol PFNavigationBarDelegate <NSObject>
 @optional
 - (void)buttonWasTouched:(UIButton*)button withType:(PFNavigationBarButtonType)buttonType;
-
-- (UIButton*)navigationBar:(PFNavigationBar*)navigationBar buttonForType:(PFNavigationBarButtonType)buttonType;
-- (NSString *)labelforButtonType:(PFNavigationBarButtonType)buttonType forState:(UIControlState)state;
-- (UIImage *)imageforButtonType:(PFNavigationBarButtonType)buttonType forState:(UIControlState)state;
-- (UIImage *)backgroundImageforButtonType:(PFNavigationBarButtonType)buttonType forState:(UIControlState)state;
-
-- (CGFloat)heightForNavigationBar:(PFNavigationBar *)navigationBar;
-- (UIImage *)backgroundImageForNavigationBar:(PFNavigationBar *)navigationBar;
-
 @end

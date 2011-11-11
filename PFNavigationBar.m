@@ -12,7 +12,6 @@
 - (void)leftButtonAction;
 - (void)rightButtonAction;
 - (void)backButtonAction;
-
 @end
 
 @implementation PFNavigationBar
@@ -25,8 +24,12 @@
     self = [super initWithFrame:CGRectMake(0, 0, 320, 44)];
     if (self) {
         viewController = [controller retain];
-        
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         UILabel *label = [[UILabel alloc] initWithFrame:self.frame];
+        label.font = [UIFont boldSystemFontOfSize:12.0];
+        label.textColor = [UIColor whiteColor];
+        label.shadowColor = [UIColor blackColor];
+        label.shadowOffset = CGSizeMake(0, 1);
         [label setBackgroundColor:[UIColor clearColor]];
         self.titleLabel = label;
         [label release];
@@ -35,9 +38,19 @@
 
         height = 44.0;
         autoAdjustButtonWidth = NO;
-
+        autoUpdateBackButtonLabel = YES;
+        [viewController.view insertSubview:self atIndex:999];
     }
+    
     return self;
+}
+
+- (void)setAutoAdjustButtonWidth:(BOOL)autoAdjust {
+    autoAdjustButtonWidth = autoAdjust;
+}
+
+- (void)setAutoUpdateBackButtonLabel:(BOOL)autoAdjust {
+    autoUpdateBackButtonLabel = autoAdjust;
 }
 
 - (void)setHeight:(CGFloat)navBarHeight {
@@ -71,28 +84,34 @@
     [self setNeedsDisplay];
 }
 
+- (void)setHidden:(BOOL)hidden {
+    [super setHidden:hidden];
+    if(!hidden) {
+        [self setNeedsDisplay];
+    }
+}
+
 - (void)drawRect:(CGRect)rect {
-        
-    NSLog(@"Draw Rect");
+    
+    CGFloat screenHeight;
+    
+    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+        screenHeight = 320;
+    } else {
+        screenHeight = 480;
+    }
+    
     BOOL isStatusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
     
-    if([self.delegate respondsToSelector:@selector(heightForNavigationBar:)]) {
-        height = [self.delegate heightForNavigationBar:self];
+    if(!isStatusBarHidden) {
+        screenHeight -= 20;
     }
     
-    CGRect newFrame = CGRectMake(0, 0, viewController.view.bounds.size.width, height);
-    
-    if(isStatusBarHidden){
-        newFrame.origin.y = 0.0;   
-    } else {
-        if(viewController.wantsFullScreenLayout) {
-            newFrame.origin.y = 20.0; 
-        } else {
-            newFrame.origin.y = 0.0;
-        }
-    }
-    
-    self.frame = newFrame;
+    CGRect newFrame = viewController.view.frame;
+    newFrame.size.height = height;       
+    newFrame.origin.y = viewController.view.frame.size.height - screenHeight;
+
+    [self setFrame:newFrame];
             
     if(!leftButton && backButton) {
         // Check if there's a need for a back button
@@ -119,20 +138,21 @@
                 [leftButton setTitle:previousTitle forState:UIControlStateNormal];
             }
             [leftButton addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
-            [self insertSubview:leftButton aboveSubview:titleLabel];
+            
         }
     }    
-    
+
+    if(leftButton)  [self insertSubview:leftButton aboveSubview:titleLabel];
     if(rightButton) [self insertSubview:rightButton aboveSubview:titleLabel];
     
     CGFloat leftButtonWidth = [self buttonWidth:leftButton];
     CGFloat rightButtonWidth = [self buttonWidth:rightButton];
     
-    NSLog(@"Left button => %@", leftButton);
-    NSLog(@"Right button => %@", rightButton);
     if(rightButton && leftButton) {
         titleLabel.textAlignment = UITextAlignmentCenter;
+        [titleLabel setHidden:YES];
     } else {
+        [titleLabel setHidden:NO];
         if(!rightButton && !leftButton) {
             titleLabel.textAlignment = UITextAlignmentCenter;
         } else {
@@ -167,14 +187,6 @@
     [titleLabel setFrame:newFrame];
     titleLabel.text = viewController.title;
     
-}
-
-- (void)setAutoAdjustButtonWidth:(BOOL)autoAdjust {
-    autoAdjustButtonWidth = autoAdjust;
-}
-
-- (void)autoUpdateBackButtonLabel:(BOOL)autoAdjust {
-    autoAdjustButtonWidth = autoAdjust;
 }
 
 - (CGFloat)buttonWidth:(UIButton *)button {
