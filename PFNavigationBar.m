@@ -198,7 +198,7 @@
         CGSize size = [button.titleLabel.text sizeWithFont:button.titleLabel.font constrainedToSize:CGSizeMake(125, MAXFLOAT) lineBreakMode:UILineBreakModeTailTruncation];
         
         CGRect newFrame = button.frame;
-        newFrame.size.width = size.width + 25;
+        newFrame.size.width = size.width + 30;
         [button setFrame:newFrame];
         return newFrame.size.width;
         
