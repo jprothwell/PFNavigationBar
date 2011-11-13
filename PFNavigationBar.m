@@ -95,7 +95,9 @@
     
     CGFloat screenHeight;
     
-    if(UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])) {
+    UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if(UIDeviceOrientationIsLandscape(currentOrientation) && [viewController shouldAutorotateToInterfaceOrientation:currentOrientation]) {
         screenHeight = 320;
     } else {
         screenHeight = 480;
