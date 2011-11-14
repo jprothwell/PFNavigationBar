@@ -220,6 +220,7 @@
 
 - (void)backButtonAction {
     [viewController.navigationController popViewControllerAnimated:YES];
+    [viewController release];
 }
 
 - (void)rightButtonAction {
