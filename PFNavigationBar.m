@@ -120,7 +120,7 @@
 
         NSArray *viewControllers = viewController.navigationController.viewControllers;
         NSInteger viewControllersCount = [viewControllers count];
-        NSLog(@"Check if there's a need for a back button => %i", viewControllersCount);        
+
         if(viewControllersCount > 1) {
             leftButton = backButton;
             if(autoUpdateBackButtonLabel) {                
