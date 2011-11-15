@@ -23,6 +23,7 @@
 - (id)initWithViewController:(UIViewController*)controller {
     self = [super initWithFrame:CGRectMake(0, 0, 320, 44)];
     if (self) {
+        [self setOpaque:NO];
         viewController = [controller retain];
         [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         UILabel *label = [[UILabel alloc] initWithFrame:self.frame];

@@ -9,7 +9,7 @@
 
 #define LEFT_MARGIN 5.0f;
 #define RIGHT_MARGIN 5.0f;
-#define TITLE_PADDING 6.0f;
+#define TITLE_PADDING 8.0f;
 
 
 typedef enum {
