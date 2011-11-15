@@ -185,7 +185,7 @@
     newFrame.size.width = totalWidth - (margin * 2) - leftButtonWidth - rightButtonWidth;
     newFrame.size.width -= LEFT_MARGIN;
     newFrame.size.width -= RIGHT_MARGIN;
-    newFrame.size.height = self.frame.size.height;
+    newFrame.size.height = height;
     
     [titleLabel setFrame:newFrame];
     titleLabel.text = viewController.title;
