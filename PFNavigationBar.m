@@ -12,6 +12,7 @@
 - (void)leftButtonAction;
 - (void)rightButtonAction;
 - (void)backButtonAction;
+- (void)removeButton:(UIButton*)button;
 @end
 
 @implementation PFNavigationBar
@@ -67,18 +68,31 @@
     [backgroundImageView release];
 }
 
+- (void)removeButton:(UIButton*)button {
+    if(button) {
+        if(button.superview) {
+            [button removeFromSuperview];
+        }
+        [button release];
+        button = nil;
+    }
+}
+
 - (void)setButton:(UIButton*)button forType:(PFNavigationBarButtonType)type {
     if (type == PFNavigationBarButtonTypeLeft)  {
+        [self removeButton:leftButton];
         leftButton = [button retain];
         [leftButton addTarget:self action:@selector(leftButtonAction) forControlEvents:UIControlEventTouchUpInside];
     }
     
     if (type == PFNavigationBarButtonTypeRight) {
+        [self removeButton:rightButton];
         rightButton = [button retain];
         [rightButton addTarget:self action:@selector(rightButtonAction) forControlEvents:UIControlEventTouchUpInside];
     }
     
     if (type == PFNavigationBarButtonTypeBack)  {
+        [self removeButton:backButton];
         backButton = [button retain];
     }
     
