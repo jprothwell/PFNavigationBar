@@ -178,10 +178,15 @@
     newFrame.origin.x = totalWidth - rightButtonWidth - RIGHT_MARGIN;
     [rightButton setFrame:newFrame];
     
-    newFrame = titleLabel.frame;
-    newFrame.origin.x = leftButtonWidth + LEFT_MARGIN;
-    if(leftButtonWidth > 0) newFrame.origin.x += TITLE_PADDING;
-    CGFloat margin = TITLE_PADDING;
+    newFrame = CGRectZero;
+    newFrame.origin.y = TITLE_Y_PADDING;    
+    newFrame.origin.x = TITLE_X_PADDING;   
+    
+    if(leftButtonWidth > 0) {
+        newFrame.origin.x += leftButtonWidth + LEFT_MARGIN;        
+    }
+    
+    CGFloat margin = TITLE_X_PADDING;
     newFrame.size.width = totalWidth - (margin * 2) - leftButtonWidth - rightButtonWidth;
     newFrame.size.width -= LEFT_MARGIN;
     newFrame.size.width -= RIGHT_MARGIN;
