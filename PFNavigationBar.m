@@ -209,10 +209,10 @@
         CGRect newFrame = button.frame;
         newFrame.size.width = size.width + 30;
         [button setFrame:newFrame];
-        newFrame.size.width = size.width;
-        [button.titleLabel setFrame:newFrame];
+        //newFrame.size.width = size.width;
+        //[button.titleLabel setFrame:newFrame];
 
-        return newFrame.size.width + 30;
+        return newFrame.size.width;
         
     } else {        
         return button.frame.size.width;
