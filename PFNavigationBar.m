@@ -207,11 +207,12 @@
         [button.titleLabel setLineBreakMode:UILineBreakModeTailTruncation];
 
         CGRect newFrame = button.frame;
-        newFrame.size.width = size.width;
-        [button.titleLabel setFrame:newFrame];
         newFrame.size.width = size.width + 30;
         [button setFrame:newFrame];
-        return newFrame.size.width;
+        newFrame.size.width = size.width;
+        [button.titleLabel setFrame:newFrame];
+
+        return newFrame.size.width + 30;
         
     } else {        
         return button.frame.size.width;
