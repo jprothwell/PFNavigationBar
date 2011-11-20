@@ -158,9 +158,6 @@
             
         }
     }    
-
-    if(leftButton)  [self insertSubview:leftButton aboveSubview:titleLabel];
-    if(rightButton) [self insertSubview:rightButton aboveSubview:titleLabel];
     
     CGFloat leftButtonWidth = [self buttonWidth:leftButton];
     CGFloat rightButtonWidth = [self buttonWidth:rightButton];
@@ -208,7 +205,10 @@
     
     [titleLabel setFrame:newFrame];
     titleLabel.text = viewController.title;
-    
+
+    if(leftButton)  [self insertSubview:leftButton aboveSubview:titleLabel];
+    if(rightButton) [self insertSubview:rightButton aboveSubview:titleLabel];
+
 }
 
 - (CGFloat)buttonWidth:(UIButton *)button {
@@ -221,10 +221,8 @@
         [button.titleLabel setLineBreakMode:UILineBreakModeTailTruncation];
 
         CGRect newFrame = button.frame;
-        newFrame.size.width = size.width + 30;
+        newFrame.size.width = size.width + 40;
         [button setFrame:newFrame];
-        //newFrame.size.width = size.width;
-        //[button.titleLabel setFrame:newFrame];
 
         return newFrame.size.width;
         

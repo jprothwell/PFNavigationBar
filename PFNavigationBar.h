@@ -7,8 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
-#define LEFT_MARGIN 5.0f;
-#define RIGHT_MARGIN 5.0f;
+#define LEFT_MARGIN 0.0f;
+#define RIGHT_MARGIN 0.0f;
 #define TITLE_X_PADDING 10.0f;
 #define TITLE_Y_PADDING -2.0f;
 
