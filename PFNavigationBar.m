@@ -101,32 +101,15 @@
 
 - (void)setHidden:(BOOL)hidden {
     [super setHidden:hidden];
-    if(!hidden) {
-        [self setNeedsDisplay];
-    }
+    if(!hidden) [self setNeedsDisplay];
 }
-
 - (void)drawRect:(CGRect)rect {
+        
+    CGRect newFrame = self.frame;
+    newFrame.size.height = height;
+    newFrame.origin.y = 0;
     
-    CGFloat screenHeight;
-    
-    UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if(UIDeviceOrientationIsLandscape(currentOrientation) && [viewController shouldAutorotateToInterfaceOrientation:currentOrientation]) {
-        screenHeight = 320;
-    } else {
-        screenHeight = 480;
-    }
-    
-    BOOL isStatusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
-    
-    if(!isStatusBarHidden) {
-        screenHeight -= 20;
-    }
-    
-    CGRect newFrame = viewController.view.frame;
-    newFrame.size.height = height;       
-    newFrame.origin.y = viewController.view.frame.size.height - screenHeight;
+    if(viewController.wantsFullScreenLayout) newFrame.origin.y += 20;
 
     [self setFrame:newFrame];
             
